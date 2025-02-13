@@ -1,6 +1,8 @@
 package com.devsuperior.dscommerce.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +22,20 @@ public class ProductController {
 	public ProductDTO findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
-	/**ou:
-	 * ProductDTO dto = service.findById(id);
-		return dto;
-	 * 
+	/**
 	 * Postman : productbyid
-	 * GET | http://localhost/products/1
+	 * GET | http://localhost:8080/products/1
 	 * 200 ok 
 	 */
 	
+	@GetMapping
+	public Page<ProductDTO> findAll(Pageable pageable) {
+		return service.findAll(pageable);
+	}
+	/**
+	 * Postman : products
+	 * GET | http://localhost:8080/products
+	 * ?size=12&page=0&sort=id,desc&name=pc gamer
+	 * 200 ok 
+	 */
 }
