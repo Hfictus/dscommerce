@@ -19,7 +19,7 @@ public class ProductDTO {
 	@NotBlank(message = "Campo requerido")
 	private String description;
 	
-	@Positive(message = "O deve ser positivo")
+	@Positive(message = "O valor deve ser positivo")
 	private Double price;
 	private String imgUrl;
 	
