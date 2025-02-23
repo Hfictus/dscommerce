@@ -73,17 +73,7 @@ public class ProductService {
 			throw new DatabaseException("Falha de integridade referencial");
 		}
 	}
-	
-	
-	/*
-	public void delete(Long id) {
-		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException("Recurso não encontrado");
-		}
-		repository.deleteById(id);
-	}
-	*/
-	
+		
 	private void copyDtoToEntity(ProductDTO dto, Product entity) {
 		entity.setName(dto.getName());
 		entity.setDescription(dto.getDescription());
