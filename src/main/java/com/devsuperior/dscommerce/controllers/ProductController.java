@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,23 +27,25 @@ import jakarta.validation.Valid;
 public class ProductController {
 	
 	@Autowired
-	private ProductService service;
+	private ProductService productService;
 		
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
-		ProductDTO dto = service.findById(id);
+		ProductDTO dto = productService.findById(id);
 		return ResponseEntity.ok(dto);
 	}
 		
 	@GetMapping
-	public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
-		Page<ProductDTO> dto = service.findAll(pageable);
+	public ResponseEntity<Page<ProductDTO>> findAll(
+			@RequestParam(name = "name", defaultValue = "") String name,
+			Pageable pageable) {
+		Page<ProductDTO> dto = productService.findAll(name, pageable);
 		return ResponseEntity.ok(dto);
 	}
 		
 	@PostMapping
 	public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto) {
-		dto = service.insert(dto);
+		dto = productService.insert(dto);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();
@@ -53,14 +56,14 @@ public class ProductController {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO dto) {
-		dto = service.update(id, dto);
+		dto = productService.update(id, dto);
 		return ResponseEntity.ok(dto);
 	}
 	
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		service.delete(id);
+		productService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
