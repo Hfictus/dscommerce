@@ -20,7 +20,7 @@ public class OrderDTO {
 	
 	private PaymentDTO payment;
 	
-	@NotEmpty(message = "Deve haver pelo menos um item.")
+	@NotEmpty(message = "Deve ter pelo menos um item")
 	private List<OrderItemDTO> items = new ArrayList<>();
 
 	public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment) {
@@ -36,10 +36,10 @@ public class OrderDTO {
 		moment = entity.getMoment();
 		status = entity.getStatus();
 		client = new ClientDTO(entity.getClient());
-		payment = (entity.getPayment() == null)? null: new PaymentDTO(entity.getPayment());
+		payment = (entity.getPayment() == null)? null : new PaymentDTO(entity.getPayment());
 		for(OrderItem item : entity.getItems()) {
-			OrderItemDTO itemDTO = new OrderItemDTO(item);
-			items.add(itemDTO);
+			OrderItemDTO itemDto = new OrderItemDTO(item);
+			items.add(itemDto);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class OrderDTO {
 	public Double getTotal() {
 		double sum = 0.0;
 		for(OrderItemDTO item : items) {
-			sum += item.getSubTotal();
+			sum += item.getSubtotal();
 		}
 		return sum;
 	}

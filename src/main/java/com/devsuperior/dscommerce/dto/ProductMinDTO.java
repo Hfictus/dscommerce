@@ -54,7 +54,5 @@ public class ProductMinDTO {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	
-	
-	
+
 }
