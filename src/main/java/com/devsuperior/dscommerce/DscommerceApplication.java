@@ -10,4 +10,4 @@ public class DscommerceApplication {
 		SpringApplication.run(DscommerceApplication.class, args);
 	}
 		
-}
+}//deploy ok
